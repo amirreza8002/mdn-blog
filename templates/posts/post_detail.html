@@ -1,0 +1,12 @@
+{% extends "_base.html" %}
+
+{% block title %}{{ post.title }}{% endblock %}
+
+{% block content %}
+	<h2>{{ post.title }}</h2>
+  <p><small>{% for cat in post.categories.all %}<a href="#">{{ cat }}</a> {% endfor %}</small></p>
+  <p>by: <em><a href="{{ post.author.get_absolute_url }}">{{ post.author }}</a></em></p>
+  <p>{{ post.content|safe }}</p>
+  <p><small>published: {{ post.publish|date:"Y/m/d" }}</small></p>
+  <p><small>tags: {% for tag in post.tags.all %}<a href="#">{{ tag }}</a> {% endfor %}</small></p>
+{% endblock %}
