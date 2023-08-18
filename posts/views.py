@@ -1,8 +1,11 @@
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
-from django.db.models import Count
+from django.views.generic.edit import CreateView
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.template.defaultfilters import slugify
 
 from .models import Post, PostCategory
+from .forms import PostForm
 from accounts.models import CustomUser
 
 
@@ -24,16 +27,19 @@ class PostDetailView(DetailView):
         self.get_object().save()
         return super().get(request, *args, **kwargs)
 
-    # def get_context_data(self, **kwargs):
-    #     context = super().get_context_data()
-    #     # slug = self.kwargs["slug"]
-    #     # post = Post.objects.filter(slug__exact=slug)
-    #     # print(post)
-    #     # user = CustomUser.objects.get(username=post._meta.get_field("username"))
-    #
-    #     return context
-
 
 class UserDetailView(DetailView):
     model = CustomUser
     template_name = "users/user_detail.html"
+
+
+class PostCreateView(LoginRequiredMixin, CreateView):
+    model = Post
+    fields = "title", "content", "categories", "tags", "status"
+    template_name = "posts/post_create.html"
+    # form_class = PostForm
+
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        form.instance.slug = slugify(self.request.POST.get("title"))
+        return super().form_valid(form)

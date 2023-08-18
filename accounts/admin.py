@@ -17,8 +17,6 @@ class CustomUserAdmin(UserAdmin):
         "is_superuser",
     )
 
-    # prepopulated_fields = {"slug": ("username",)}
-
     def get_fieldsets(self, request, obj=None):
         fieldsets = super().fieldsets + (
             (

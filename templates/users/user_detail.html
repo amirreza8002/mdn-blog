@@ -1,10 +1,22 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Title</title>
-</head>
-<body>
+{% extends "_base.html" %}
 
-</body>
-</html>
+{% block title %}{{ customuser.username }}{% endblock %}
+
+{% block content %}
+	<h2>{{ customuser.username }}</h2>
+
+  {% if customuser.bio %}
+    <p>{{ customuser.bio }}</p>
+  {% endif %}
+  <hr>
+
+  {% for post in customuser.posts.all %}
+
+    <h4><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h4>
+    {{ post.content|safe|truncatewords:15|linebreaks }}
+    <p><small>published: {{ post.publish|date:"Y/m/d" }}</small></p>
+  	<hr>
+
+  {% endfor %}
+
+{% endblock %}

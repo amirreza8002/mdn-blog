@@ -142,7 +142,7 @@ AUTH_USER_MODEL = "accounts.CustomUser"
 LOGIN_URL = "account_login"
 
 # login logout redirect
-LOGIN_REDIRECT_URL = "home"
+LOGIN_REDIRECT_URL = "posts:post_list"
 LOGOUT_REDIRECT_URL = "logged_out"
 
 # allauth settings
