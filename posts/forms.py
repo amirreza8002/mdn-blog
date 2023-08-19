@@ -10,3 +10,5 @@ class PostForm(forms.ModelForm):
         model = Post
         fields = ["title", "slug", "author", "content", "categories", "tags", "status"]
         widgets = {"content": TinyMCE(attrs={"class": "edit_by_tinemce"})}
+
+

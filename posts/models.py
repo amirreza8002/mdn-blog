@@ -43,7 +43,7 @@ class Post(models.Model):
         settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="posts"
     )
     title = models.CharField(_("title"), max_length=100)
-    slug = models.SlugField(max_length=250)
+    slug = models.SlugField(max_length=250, unique=True)
     content = HTMLField(verbose_name=_("content"))
     categories = models.ManyToManyField(PostCategory, related_name="posts")
     tags = models.ManyToManyField(Tag, related_name="posts")

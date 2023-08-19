@@ -44,7 +44,7 @@ INSTALLED_APPS = [
     "allauth",
     "allauth.account",
     # taggit
-    "taggit",
+    # "taggit",
     # text editor
     "tinymce",
 ]
