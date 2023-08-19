@@ -10,14 +10,19 @@
 
 <body>
   <header>
-    <h4>my site</h4>
+    <h4><a href="{% url 'posts:post_list' %}">my site</a></h4>
     {% if user.is_authenticated %}
       <p>{{ user.username }}</p>
       <p><a href="{% url 'account_logout' %}">Log Out</a></p>
+      <p><a href="{% url 'posts:post_create' %}">New Post</a></p>
     {% else %}
       <p><a href="{% url 'account_login' %}">Log In</a></p>
       <p><a href="{% url 'account_signup' %}">Sign Up</a></p>
     {% endif %}
+    <p><a href="{% url 'user_list' %}">Users</a></p>
+
+    <hr>
+    <hr>
     
   </header>
   {% block content %}

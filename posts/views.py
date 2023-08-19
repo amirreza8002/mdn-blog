@@ -5,12 +5,9 @@ from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.template.defaultfilters import slugify
-from django.http import HttpResponse
 
 
-from .models import Post, PostCategory
-from .forms import PostForm
-from accounts.models import CustomUser
+from .models import Post
 
 
 class PostListView(ListView):
@@ -32,9 +29,7 @@ class PostDetailView(DetailView):
         return super().get(request, *args, **kwargs)
 
 
-class UserDetailView(DetailView):
-    model = CustomUser
-    template_name = "users/user_detail.html"
+# class UserAccount(LoginRequiredMixin, )
 
 
 class PostCreateView(LoginRequiredMixin, CreateView):
@@ -62,7 +57,7 @@ class PostCreateView(LoginRequiredMixin, CreateView):
 
     def form_valid(self, form):
         form.instance.author = self.request.user
-
-        form.instance.slug = self.make_slug(self.request.POST.get("title"))
+        slug = slugify(self.request.POST.get("title"))
+        form.instance.slug = self.make_slug(slug)
 
         return super().form_valid(form)
