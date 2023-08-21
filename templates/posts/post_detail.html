@@ -9,4 +9,17 @@
   <p>{{ post.content|safe }}</p>
   <p><small>published: {{ post.publish|date:"Y/m/d" }}</small></p>
   <p><small>tags: {% for tag in post.tags.all %}<a href="#">{{ tag }}</a> {% endfor %}</small></p>
+
+  <hr>
+  <h5>comments</h5>
+  {% for comment in post.comments.all %}
+  	<p>{{ comment.author }} &middot; {{ comment }}</p>
+  {% endfor %}
+  <hr>
+
+  <h4>add a new comment</h4>
+  <form action="" method="post">{% csrf_token %}
+    {{ form.as_p }}
+    <button class="btn btn-success ml-2" type="submit">Save</button>
+  </form>
 {% endblock %}

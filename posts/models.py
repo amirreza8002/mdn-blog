@@ -72,3 +72,16 @@ class Post(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class Comment(models.Model):
+    post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name="comments")
+    comment = models.CharField(max_length=255)
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    publish = models.DateTimeField(verbose_name=_("published at"), default=timezone.now)
+
+    def get_absolute_url(self):
+        return reverse("posts:post_list")
+
+    def __str__(self):
+        return self.comment

@@ -2,7 +2,7 @@ from django import forms
 
 from tinymce.widgets import TinyMCE
 
-from .models import Post
+from .models import Post, Comment
 
 
 class PostForm(forms.ModelForm):
@@ -12,3 +12,8 @@ class PostForm(forms.ModelForm):
         widgets = {"content": TinyMCE(attrs={"class": "edit_by_tinemce"})}
 
 
+class CommentForm(forms.ModelForm):
+    class Meta:
+        model = Comment
+        fields = ("comment",)
+        # widgets = {"comment": TinyMCE(attrs={"class": "edit_by_tinemce"})}

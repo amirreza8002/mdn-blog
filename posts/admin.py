@@ -1,11 +1,19 @@
 from django.contrib import admin
 
-from .models import Post, PostCategory, Tag
+from .models import Post, PostCategory, Tag, Comment
 from .forms import PostForm
+
+
+class CommentInLine(admin.TabularInline):
+    model = Comment
 
 
 @admin.register(Post)
 class PostAdmin(admin.ModelAdmin):
+    inlines = [
+        CommentInLine,
+    ]
+
     list_display = [
         "title",
         "status",
@@ -25,3 +33,4 @@ class PostAdmin(admin.ModelAdmin):
 
 admin.site.register(PostCategory)
 admin.site.register(Tag)
+admin.site.register(Comment)
